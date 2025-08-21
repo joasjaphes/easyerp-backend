@@ -1,0 +1,16 @@
+services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: easyerp
+      POSTGRES_PASSWORD: easyerp
+      POSTGRES_DB: easyerp
+    ports:
+      - "5430:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+    driver: local
+
