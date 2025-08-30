@@ -1,6 +1,7 @@
 services:
   database:
     image: postgres:latest
+    container_name: easyerp_db
     environment:
       POSTGRES_USER: easyerp
       POSTGRES_PASSWORD: easyerp
@@ -9,6 +10,18 @@ services:
       - "5430:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+  
+  api:
+    container_name: easyerp_api
+    image: openjdk:17-ea-17-jdk-slim
+    working_dir: /app
+    ports:
+      - "8080:8080"
+    command: ["./mvnw", "spring-boot:run"]
+    depends_on:
+      - database
+    volumes:
+      - ./:/app
 
 volumes:
   db_data:

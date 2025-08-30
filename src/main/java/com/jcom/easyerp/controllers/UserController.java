@@ -1,15 +1,29 @@
 package com.jcom.easyerp.controllers;
 
+import com.jcom.easyerp.dtos.UserDto;
 import com.jcom.easyerp.entities.User;
+import com.jcom.easyerp.mappers.UserMapper;
 import com.jcom.easyerp.services.UserService;
+import com.jcom.easyerp.shared.HttpException;
+
+import java.util.List;
+import java.util.Map;
 
 import lombok.AllArgsConstructor;
 
-import java.util.List;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+
+
+
 
 
 
@@ -18,9 +32,25 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class UserController {
     private UserService userService;
+    private UserMapper userMapper;
 
     @GetMapping("")
     public List<User> getAllUsers() {
         return this.userService.getAllUsers();
+    }
+    @PostMapping("")
+    public UserDto createUser(@RequestBody User user) {
+        User createdUser = this.userService.createUser(user);
+        System.out.println("User:::" + createdUser.getId());
+        return userMapper.toDto(createdUser);
+    }
+    @GetMapping("/{id}")
+
+    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Integer id) {
+        User user =  this.userService.getUserById(id);
+        if(user == null) {
+            return ResponseEntity.status(404).body(null);
+        }
+        return ResponseEntity.ok(userMapper.toDto(user));
     }
 }

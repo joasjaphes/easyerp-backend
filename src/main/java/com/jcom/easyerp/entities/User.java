@@ -1,21 +1,40 @@
 package com.jcom.easyerp.entities;
 
-import jakarta.annotation.Generated;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "users") // safer than "user"
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode(of = "id") // equality based on primary key
 public class User {
+
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column( nullable = false, unique = true, length = 11)
+    private String uid;
+
+    @Column(nullable = false, unique = true, length = 50)
     private String username;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
+
+    @Column(name = "first_name", length = 50)
     private String firstName;
+
+    @Column(name = "surname", length = 50)
     private String surname;
+
+    @Column(name = "middle_name", length = 50)
     private String middleName;
 }
