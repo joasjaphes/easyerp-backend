@@ -12,6 +12,8 @@ import com.jcom.easyerp.entities.User;
 import com.jcom.easyerp.mappers.UserMapper;
 import com.jcom.easyerp.repositories.UserRepository;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import at.favre.lib.crypto.bcrypt.BCrypt.Result;
 import jakarta.annotation.Resource;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -31,6 +33,9 @@ public class UserService {
       
     }
     public User createUser(User user) {
+        BCrypt.Hasher hasher = BCrypt.withDefaults();
+        String hashedPassword = hasher.hashToString(12, user.getPassword().toCharArray());
+        user.setPassword(hashedPassword);
         return this.userRepository.save(user);
     }
     public User updateUser(Integer id, User user) {

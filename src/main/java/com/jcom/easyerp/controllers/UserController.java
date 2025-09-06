@@ -35,13 +35,14 @@ public class UserController {
     private UserMapper userMapper;
 
     @GetMapping("")
-    public List<User> getAllUsers() {
-        return this.userService.getAllUsers();
+    public List<UserDto> getAllUsers() {
+        List<User> users =  this.userService.getAllUsers();
+        return users.stream().map(userMapper::toDto).toList();
     }
     @PostMapping("")
-    public UserDto createUser(@RequestBody User user) {
-        User createdUser = this.userService.createUser(user);
-        System.out.println("User:::" + createdUser.getId());
+    public UserDto createUser(@RequestBody UserDto user) {
+        User payload = userMapper.toEntity(user);
+        User createdUser = this.userService.createUser(payload);
         return userMapper.toDto(createdUser);
     }
     @GetMapping("/{id}")
