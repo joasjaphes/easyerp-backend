@@ -2,9 +2,15 @@ package com.jcom.easyerp.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.jcom.easyerp.entities.Supplier;
 import com.jcom.easyerp.repositories.SupplierRepository;
 
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
 public class SupplierService {
     private SupplierRepository supplierRepository;
 
