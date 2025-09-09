@@ -17,7 +17,7 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-public class PurchaseOrder {
+public class PurchaseOrder extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,11 +25,17 @@ public class PurchaseOrder {
     @Column(nullable = false, unique = true, length = 11)
     private String uid;
 
-    @Column(nullable = false, unique =true)
+    @Column(nullable = false, unique = true)
     private String orderNumber;
 
     @ManyToOne(optional = false)
     private Supplier supplier;
+
+    @Column(nullable = false)
+    private Double totalAmount;
+
+    @Column(nullable = false)
+    private String status;
 
     @OneToMany(mappedBy = "purchaseOrder")
     private List<PurchaseOrderItem> items;

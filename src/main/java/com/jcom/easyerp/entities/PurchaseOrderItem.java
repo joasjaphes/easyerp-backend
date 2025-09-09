@@ -21,6 +21,9 @@ public class PurchaseOrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false, unique = true, length = 11)
+    private String uid;
+
     @OneToOne
     private Product product;
 
