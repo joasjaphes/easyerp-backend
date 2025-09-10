@@ -6,5 +6,7 @@ import com.jcom.easyerp.entities.Supplier;
 
 
 public interface SupplierRepository extends JpaRepository<Supplier, Integer> {
+
+   Supplier findByUid(String uid);
     
 }

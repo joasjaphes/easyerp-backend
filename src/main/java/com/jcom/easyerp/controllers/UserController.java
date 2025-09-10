@@ -46,9 +46,8 @@ public class UserController {
         return userMapper.toDto(createdUser);
     }
     @GetMapping("/{id}")
-
-    public ResponseEntity<UserDto> getUserById(@PathVariable("id") Integer id) {
-        User user =  this.userService.getUserById(id);
+    public ResponseEntity<UserDto> getUserById(@PathVariable("id") String id) {
+        User user =  this.userService.getUserByUid(id);
         if(user == null) {
             return ResponseEntity.status(404).body(null);
         }

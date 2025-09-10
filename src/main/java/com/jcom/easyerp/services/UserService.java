@@ -32,6 +32,11 @@ public class UserService {
         return user;
       
     }
+
+    public User getUserByUid(String uid) {
+        return this.userRepository.findByUid(uid);
+    }
+
     public User createUser(User user) {
         BCrypt.Hasher hasher = BCrypt.withDefaults();
         String hashedPassword = hasher.hashToString(12, user.getPassword().toCharArray());

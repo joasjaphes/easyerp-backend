@@ -22,6 +22,10 @@ public class ProductService {
         return this.productRepository.findById(id).orElse(null);
     }
 
+    public Product getProductByUid(String uid) {
+        return this.productRepository.findByUid(uid);
+    }
+
     public Product updateProduct(Integer id, Product product) {
         if (this.productRepository.existsById(id)) {
             return this.productRepository.save(product);

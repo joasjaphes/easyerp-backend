@@ -22,6 +22,10 @@ public class SupplierService {
         return this.supplierRepository.findById(id).orElse(null);
     }
 
+    public Supplier getSupplierByUid(String uid) {
+        return this.supplierRepository.findByUid(uid);
+    }
+
     public Supplier updateSupplier(Integer id, Supplier supplier) {
         if (this.supplierRepository.existsById(id)) {
             return this.supplierRepository.save(supplier);
